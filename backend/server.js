@@ -14,9 +14,24 @@ dotenv.config();
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  'https://ideaforge-client.onrender.com',
+  'http://localhost:5173'
+];
+
 app.use(cors({ 
-  origin: 'https://ideaforge-client.onrender.com'
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // Routes
