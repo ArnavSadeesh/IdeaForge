@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   'https://ideaforge-client.onrender.com',
-  'http://localhost:5173'
+  'http://localhost:8001'
 ];
 
 app.use(cors({ 
@@ -47,6 +47,7 @@ app.use('/api/hackathons', hackathonRoutes);
 app.use('/api/resources', resourceRoutes);
 
 // Connect to MongoDB
+console.log("Attempting to connect to MongoDB with URI:", process.env.MONGO_URI); // Added for debugging
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
