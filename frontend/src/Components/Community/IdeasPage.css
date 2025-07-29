@@ -1,0 +1,40 @@
+.ideas-page-background {
+  background: linear-gradient(
+    -45deg,
+    #308dca,   /* midnight blue */
+    #3498db,   /* peter river */
+    #2b79ad    /* midnight blue */
+  );
+  background-size: 300% 300%;
+  animation: grayWave 10s ease infinite; 
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 50px;
+}
+
+.ideas-content-wrapper {
+  display: flex;
+  justify-content: center; /* Center the content */
+  gap: 20px; /* Space between components */
+  padding-top: 20px;
+  align-items: flex-start;
+}
+
+.ideas-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between the filters */
+}
+
+.main-ideas-content {
+  padding: 20px 20px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.claim-error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}

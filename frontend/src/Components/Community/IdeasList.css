@@ -1,0 +1,5 @@
+.ideas-list-container {
+  width: 800px; /* Increased width for ideas list */
+  margin: 0 auto; /* Center the ideas list */
+  padding: 20px;
+}

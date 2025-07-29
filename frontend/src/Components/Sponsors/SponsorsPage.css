@@ -1,0 +1,33 @@
+.sponsors-page {
+  background: #3498db; 
+  background-size: 300% 300%;
+  animation: grayWave 10s ease infinite;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.sponsors-content-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 20px 20px 20px; /* Add padding to all sides, keeping top for banner */
+  align-items: flex-start;
+}
+
+@keyframes grayWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  75% {
+      background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

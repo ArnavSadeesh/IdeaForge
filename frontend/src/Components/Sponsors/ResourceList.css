@@ -1,0 +1,16 @@
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-right: 40px; 
+  margin-left: 15px; 
+  margin-top: 38px; 
+}
+
+.no-resources-message {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 50px; /* Adjust as needed to move it lower */
+}

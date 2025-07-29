@@ -1,0 +1,64 @@
+
+
+.homepage-background {
+  background: linear-gradient(
+    -45deg,
+    #ff9a9e,   /* soft pink */
+    #8a2be2,   /* vivid purple */
+    #000000    /* black */
+  );
+  background-size: 300% 300%;
+  animation: flameWave 10s ease infinite;
+}
+
+@keyframes flameWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.homepage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
+}
+
+.anvil-gif {
+  width: 150px; /* Adjust size as needed */
+  height: 150px; /* Adjust size as needed */
+  margin-left: -100px; 
+  margin-right: 30px; /* Increased margin to move further left */
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 50px; /* Space between text and login */
+}
+
+.title {
+  font-size: 6rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+  font-size: 2rem;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}

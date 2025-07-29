@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  overflow: hidden; /* Prevent scrollbars from appearing */
+}
+
+.register-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  transition: filter 0.3s ease;
+}
+
+.register-container.blurred {
+  filter: blur(5px);
+}
+
+.register-column {
+  position: relative;
+  text-align: center;
+  width: 33.333%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.register-column img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+.register-column button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.register-column:hover img {
+  filter: blur(5px) brightness(0.8);
+}
+
+.register-column:hover button {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 20px white;
+}

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.theme-filter-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px; /* Example width */
+  margin-left: 50px;
+  margin-top: 40px;
+  position: sticky; /* Make it sticky */
+}
+
+.theme-filter-title {
+  font-family: 'Montserrat', sans-serif; /* New font */
+  color: #262329; /* Vivid purple from banner */
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.theme-checkboxes {
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-checkbox-item {
+  margin-bottom: 10px;
+}
+
+.theme-checkbox-item label {
+  margin-left: 8px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.manage-themes-button {
+  background-color: #73a1cf;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.manage-themes-button:hover {
+  background-color: #0056b3;
+}
+
+.theme-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.theme-modal {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-modal h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.theme-modal p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.theme-textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.theme-modal .modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+  background-color: #28a745;
+  color: white;
+}
+
+.theme-modal .modal-actions button:hover {
+  background-color: #218838;
+}
+
+.theme-modal .modal-actions button:last-child {
+  background-color: #dc3545;
+}
+
+.theme-modal .modal-actions button:last-child:hover {
+  background-color: #c82333;
+}

@@ -1,0 +1,32 @@
+.add-resource-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  width: 300px; /* Set a fixed width like the filter */
+  display: flex;
+  flex-direction: column; /* Make the content vertical */
+  align-items: center;
+  margin-top: 40px; /* Move down */
+  margin-left: -20px; /* Move left */
+}
+
+.add-resource-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column; /* Arrange icon and text vertically */
+  align-items: center;
+}
+
+.add-resource-button .plus-icon {
+  font-size: 3rem; /* Larger plus sign */
+  margin-bottom: 10px; /* Space between plus and text */
+}

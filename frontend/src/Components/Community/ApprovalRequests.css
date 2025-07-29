@@ -1,0 +1,47 @@
+.approval-requests-container {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+    #2c3e50,   /* midnight blue */
+    #3498db,   /* peter river */
+    #2c3e50    /* midnight blue */
+  );
+  background-size: 300% 300%;
+  animation: grayWave 10s ease infinite;
+  height: 100vh; /* Ensure it takes full height */
+  overflow-y: auto;
+}
+
+.approval-requests-container h1 {
+  color: white;
+  margin-bottom: 30px;
+  margin-top: 50px; 
+}
+
+.approval-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 5rem;
+}
+
+@keyframes grayWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  75% {
+      background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

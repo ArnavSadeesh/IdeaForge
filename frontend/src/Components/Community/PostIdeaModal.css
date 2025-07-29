@@ -1,0 +1,126 @@
+.post-idea-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.post-idea-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 90%;
+  max-width: 800px; /* Increased max-width for two columns */
+  text-align: center;
+}
+
+.idea-title-input,
+.idea-description-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.modal-content-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Space between columns */
+  margin-bottom: 20px;
+}
+
+.theme-selection-column,
+.keywords-column {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.theme-selection-column label,
+.keywords-column label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+.theme-select,
+.keyword-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px; /* Adjusted margin */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.keyword-tag {
+  background-color: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.keyword-tag button {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.keyword-tag button:hover {
+  color: #333;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 0 10px; /* Adjusted margin for buttons */
+  transition: background-color 0.3s ease;
+}
+
+.theme-checkboxes-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 150px; /* Add scroll if many themes */
+  overflow-y: auto;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.theme-checkbox-item-modal {
+  display: flex;
+  align-items: center;
+}
+
+.theme-checkbox-item-modal input[type="checkbox"] {
+  margin-right: 8px;
+}

@@ -1,0 +1,28 @@
+.resource-card {
+  background: linear-gradient(to right bottom, rgba(225, 225, 225, 0.5), rgba(225, 225, 225, 0.2)); 
+  border-radius: 16px;
+  border: 1px solid transparent; 
+  box-shadow: 1.2rem 1.2rem 1.2rem rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1rem);
+  padding: 20px;
+  margin-bottom: 15px;
+  width: 600px; /* Increased width */
+  color: white;
+}
+
+.resource-card:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid #9c4de6; /* Purple border on hover */
+}
+
+.resource-card h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.resource-card p {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 5px;
+}

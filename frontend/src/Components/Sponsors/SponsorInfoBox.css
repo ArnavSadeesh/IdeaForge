@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.sponsor-info-box {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px; /* Example width */
+  margin-right: 0;
+  margin-top: 40px;
+  position: sticky; /* Make it sticky */
+  top: 120px; /* Position below the banner */
+}
+
+.sponsor-info-box h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #322e36; /* Vivid purple from banner */
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sponsor-info-box p,
+.sponsor-info-box li {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.sponsor-info-box ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}

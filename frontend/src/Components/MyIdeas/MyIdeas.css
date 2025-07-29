@@ -1,0 +1,78 @@
+.my-ideas-page {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: linear-gradient(
+    -45deg,
+    #308dca,   /* midnight blue */
+    #3498db,   /* peter river */
+    #2b79ad    /* midnight blue */
+  );
+  background-size: 300% 300%;
+  animation: grayWave 10s ease infinite; 
+  min-height: 100vh;
+  color: white;
+}
+
+.my-ideas-column,
+.claimed-ideas-column,
+.recent-messages-column {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.column-title {
+  font-size: 2rem; /* Same as Approval Requests title */
+  color: white; /* Same as Approval Requests title */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.my-ideas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.my-idea-card {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 8px;
+  width: 95%;
+  align-self: center;
+}
+
+.my-idea-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.my-idea-card p {
+  font-size: 0.9rem;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between messages */
+}
+
+.message-item {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.message-item p {
+  margin-bottom: 2px; /* Reduce space between message and time */
+  font-size: 1rem; /* Make font a bit bigger */
+}
+
+.message-item small {
+  font-size: 0.8rem;
+  color: #f7f772;
+}

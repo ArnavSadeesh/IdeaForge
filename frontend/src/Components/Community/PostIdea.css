@@ -1,0 +1,33 @@
+.post-idea-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column; /* Arrange icon and text vertically */
+  align-items: center;
+}
+
+.plus-icon {
+  font-size: 3rem; /* Larger plus sign */
+  margin-bottom: 10px; /* Space between plus and text */
+}
+
+.post-idea-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  width: 400px; /* Set a fixed width like the filter */
+  display: flex;
+  flex-direction: column; /* Make the content vertical */
+  align-items: center;
+  margin-top: 40px; /* Move down */
+  margin-right: 100px; 
+  margin-left: -100px; 
+}
