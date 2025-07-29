@@ -12,7 +12,7 @@ const ApprovalRequests = () => {
     const fetchApprovalRequests = async () => {
       if (!hackathonId) return;
       try {
-        const response = await axios.get('http://localhost:3000/api/approval-requests', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/approval-requests`, {
           params: { hackathonId },
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -28,7 +28,7 @@ const ApprovalRequests = () => {
   const handleApprove = async (id) => {
     console.log('Attempting to approve request with ID:', id);
     try {
-      await axios.patch(`http://localhost:3000/api/approval-requests/${id}/approve`, {},
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/approval-requests/${id}/approve`, {},
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -44,7 +44,7 @@ const ApprovalRequests = () => {
   const handleReject = async (id) => {
     console.log('Attempting to reject request with ID:', id);
     try {
-      await axios.delete(`http://localhost:3000/api/approval-requests/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/approval-requests/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log('Rejection successful. Filtering requests...');

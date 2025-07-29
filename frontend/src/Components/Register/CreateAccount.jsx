@@ -48,7 +48,7 @@ const CreateAccount = ({ userType, onClose }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/auth/register', payload);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
       if (userType === 'Host') {
         setHackathonInfo({
           name: response.data.hackathonName,

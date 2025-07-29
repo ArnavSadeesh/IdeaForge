@@ -16,7 +16,7 @@ const KeywordFilter = ({ selectedKeywords, setSelectedKeywords }) => {
       }
       console.log('KeywordFilter: Attempting to fetch keywords for hackathonId:', hackathonId);
       try {
-        const response = await axios.get(`http://localhost:3000/api/hackathons/${hackathonId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setKeywords(response.data.keywords || []);

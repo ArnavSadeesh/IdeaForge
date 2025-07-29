@@ -16,7 +16,7 @@ const ThemeFilter = ({ setShowThemeModal, selectedThemes, setSelectedThemes }) =
       }
       console.log('ThemeFilter: Attempting to fetch themes for hackathonId:', hackathonId);
       try {
-        const response = await axios.get(`http://localhost:3000/api/hackathons/${hackathonId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setThemes(response.data.themes || []);

@@ -12,7 +12,7 @@ const MyIdeas = () => {
   useEffect(() => {
     const fetchMyIdeas = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/ideas/my-ideas', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas/my-ideas`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMyIdeas(response.data);
@@ -23,7 +23,7 @@ const MyIdeas = () => {
 
     const fetchClaimedIdea = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users/claimed-idea', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/claimed-idea`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setClaimedIdea(response.data);
@@ -34,7 +34,7 @@ const MyIdeas = () => {
 
     const fetchRecentMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users/me', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRecentMessages(response.data.recentMessages);

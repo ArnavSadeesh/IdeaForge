@@ -26,7 +26,7 @@ const IdeasPage = () => {
     const fetchIdeas = async () => {
       if (!hackathonId) return;
       try {
-        const response = await axios.get('http://localhost:3000/api/ideas', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ideas`, {
           params: { 
             hackathonId,
             themes: selectedThemes.join(','),
@@ -51,7 +51,7 @@ const IdeasPage = () => {
 
   const handleClaimIdea = async (implementationPlan) => {
     try {
-      await axios.post('http://localhost:3000/api/approval-requests', 
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/approval-requests`, 
         { ...selectedIdea, implementationPlan, hackathonId, ideaId: selectedIdea._id },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -79,7 +79,7 @@ const IdeasPage = () => {
 
   const handlePostIdea = async (newIdea) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/ideas', 
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/ideas`, 
         { ...newIdea, hackathonId: hackathonId },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -96,7 +96,7 @@ const IdeasPage = () => {
     try {
       const themesArray = newThemesInput.split(',').map(theme => theme.trim()).filter(theme => theme.length > 0);
       console.log('Themes to send:', themesArray);
-      await axios.patch(`http://localhost:3000/api/hackathons/${hackathonId}/themes`, 
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}/themes`, 
         { themes: themesArray },
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -22,7 +22,7 @@ const PostIdeaModal = ({ onClose, onPostIdea }) => {
       }
       console.log('PostIdeaModal: Attempting to fetch themes for hackathonId:', hackathonId);
       try {
-        const response = await axios.get(`http://localhost:3000/api/hackathons/${hackathonId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAvailableThemes(response.data.themes || []);

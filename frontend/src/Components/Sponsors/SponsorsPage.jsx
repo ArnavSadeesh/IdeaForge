@@ -15,7 +15,7 @@ const SponsorsPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/resources/my-resources', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/resources/my-resources`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setResources(response.data);

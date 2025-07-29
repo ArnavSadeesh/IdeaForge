@@ -22,7 +22,7 @@ const AddResourceModal = ({ onClose, onAddResource }) => {
         intendedTheme,
         miscellaneous,
       };
-      const response = await axios.post('http://localhost:3000/api/resources', newResource, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/resources`, newResource, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onAddResource(response.data);
