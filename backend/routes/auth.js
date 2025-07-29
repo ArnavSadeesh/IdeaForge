@@ -63,15 +63,18 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { username, password, hackathonCode } = req.body;
+  console.log('Login attempt:', { username, hackathonCode }); // Added logging
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
+      console.log('User not found'); // Added logging
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log('Password mismatch'); // Added logging
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
@@ -95,6 +98,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
+        console.log('Login successful'); // Added logging
         res.json({ 
           token, 
           userType: user.userType, 
@@ -104,7 +108,7 @@ router.post('/login', async (req, res) => {
       }
     );
   } catch (err) {
-    console.error(err.message);
+    console.error('Login error:', err.message); // Added logging
     res.status(500).send('Server error');
   }
 });
