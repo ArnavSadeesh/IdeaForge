@@ -9,7 +9,7 @@ import userRoutes from './routes/users.js';
 import hackathonRoutes from './routes/hackathons.js';
 import resourceRoutes from './routes/resources.js';
 
-//dotenv.config();
+dotenv.config();
 
 const app = express();
 
@@ -46,9 +46,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/hackathons', hackathonRoutes);
 app.use('/api/resources', resourceRoutes);
 
-// Connect to MongoDB
-console.log(process.env.JWT_SECRET); 
 
+// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
