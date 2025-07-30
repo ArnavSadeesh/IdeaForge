@@ -47,6 +47,8 @@ app.use('/api/hackathons', hackathonRoutes);
 app.use('/api/resources', resourceRoutes);
 
 // Connect to MongoDB
+console.log(process.env.JWT_SECRET); 
+
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
