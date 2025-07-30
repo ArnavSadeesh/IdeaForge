@@ -9,7 +9,7 @@ import userRoutes from './routes/users.js';
 import hackathonRoutes from './routes/hackathons.js';
 import resourceRoutes from './routes/resources.js';
 
-dotenv.config();
+//dotenv.config();
 
 const app = express();
 
@@ -47,13 +47,7 @@ app.use('/api/hackathons', hackathonRoutes);
 app.use('/api/resources', resourceRoutes);
 
 // Connect to MongoDB
-console.log("Attempting to connect to MongoDB with URI:", process.env.MONGO_URI); // Added for debugging
-const uri = process.env.MONGO_URI || "mongodb+srv://appUserDev:xcT1vwKZcpK4qebO@cluster0.npqseqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; 
-
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 
