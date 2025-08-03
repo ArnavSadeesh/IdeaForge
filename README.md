@@ -1,1 +1,1 @@
-A management platform to support hackathon communities in forging collaborative culture. Streamlines idea exchange, repetitive host tasks, and resource and sponsorship onboarding.  
+# IdeaForge
