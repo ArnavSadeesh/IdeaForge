@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext'; 
 import axios from 'axios';
 import './Login.css';
@@ -15,6 +15,8 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(''); // Clear previous errors
+    console.log('Attempting to log in with:', { username, hackathonCode }); // Added logging
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
         username,
@@ -23,13 +25,15 @@ const Login = () => {
       });
 
       const { token, userType, hackathonName, hackathonId } = res.data;
+      console.log('Login successful, received:', { token, userType, hackathonName, hackathonId }); // Added logging
 
       // Store login info globally
       login({ token, userType, hackathonCode, userName: username, hackathonId, hackathonName});
 
       // Navigate to hackathon-specific page
       navigate(`/ideas/${encodeURIComponent(hackathonName)}`);
-    } catch {
+    } catch (err) {
+      console.error('Login API call failed:', err.response ? err.response.data : err.message); // Added logging
       setError('Invalid credentials!');
     }
   };
@@ -72,7 +76,7 @@ const Login = () => {
         {error && <p style={{ color: 'white', marginTop: '0.8rem' }}>{error}</p>}
       </form>
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <a href="/register" style={{ color: 'white' }}>Create a New Account</a>
+        <Link to="/register" style={{ color: 'white' }}>Create a New Account</Link>
       </div>
     </div>
   );
