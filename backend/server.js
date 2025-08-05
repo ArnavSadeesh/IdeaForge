@@ -16,6 +16,7 @@ const app = express();
 // Middleware
 const allowedOrigins = [
   'https://ideaforge-client.onrender.com',
+  'https://the-idea-forge.com', 
   'http://localhost:8001'
 ];
 
