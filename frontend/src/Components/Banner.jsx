@@ -32,8 +32,8 @@ const Banner = () => {
             <br />
             <small>by</small>
           </div>
-          <a className="navbar-brand fw-bold text-uppercase" href="https://the-equity-ai.org" target="_blank" rel="noopener noreferrer">
-            EquityAI Inc.
+          <a className="navbar-brand fw-bold text-uppercase" href="https://we-hack.org" target="_blank" rel="noopener noreferrer">
+            WeHack Inc.
           </a>
         </div>
         {showHackathonTitle && (

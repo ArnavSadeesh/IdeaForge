@@ -16,6 +16,8 @@ const IdeasPage = () => {
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [newThemesInput, setNewThemesInput] = useState('');
   const [ideas, setIdeas] = useState([]);
+  const [themes, setThemes] = useState([]);
+  const [themeVersion, setThemeVersion] = useState(0);
   const [selectedThemes, setSelectedThemes] = useState([]);
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [claimError, setClaimError] = useState(null);
@@ -41,6 +43,22 @@ const IdeasPage = () => {
 
     fetchIdeas();
   }, [hackathonId, selectedThemes, selectedKeywords]);
+
+  useEffect(() => {
+    const fetchThemes = async () => {
+      if (!hackathonId) return;
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setThemes(response.data.themes || []);
+      } catch (error) {
+        console.error('Error fetching themes:', error);
+      }
+    };
+
+    fetchThemes();
+  }, [hackathonId, token, themeVersion]);
 
   const [selectedIdea, setSelectedIdea] = useState(null);
 
@@ -92,17 +110,15 @@ const IdeasPage = () => {
   };
 
   const handleSaveThemes = async () => {
-    console.log('Attempting to save themes...');
     try {
       const themesArray = newThemesInput.split(',').map(theme => theme.trim()).filter(theme => theme.length > 0);
-      console.log('Themes to send:', themesArray);
       await axios.patch(`${import.meta.env.VITE_API_URL}/api/hackathons/${hackathonId}/themes`, 
         { themes: themesArray },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log('Themes saved successfully. Closing modal.');
+      setThemeVersion(v => v + 1);
       setShowThemeModal(false);
       setNewThemesInput('');
     } catch (error) {
@@ -115,7 +131,7 @@ const IdeasPage = () => {
       <div className="ideas-page ideas-page-background">
         <div className="ideas-content-wrapper">
           <div className="ideas-filters">
-            <ThemeFilter hackathonId={hackathonId} setShowThemeModal={setShowThemeModal} selectedThemes={selectedThemes} setSelectedThemes={setSelectedThemes} />
+            <ThemeFilter themes={themes} setShowThemeModal={setShowThemeModal} selectedThemes={selectedThemes} setSelectedThemes={setSelectedThemes} />
           <KeywordFilter hackathonId={hackathonId} selectedKeywords={selectedKeywords} setSelectedKeywords={setSelectedKeywords} />
           </div>
           <div className="main-ideas-content">
