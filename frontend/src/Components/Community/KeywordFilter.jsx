@@ -57,7 +57,7 @@ const KeywordFilter = ({ selectedKeywords, setSelectedKeywords }) => {
             </div>
           ))
         ) : (
-          <p>No keywords available.</p>
+          <p className="no-data-message"> No keywords available.</p>
         )}
       </div>
     </div>

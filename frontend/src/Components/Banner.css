@@ -3,11 +3,8 @@
 }
 
 .banner-style {
-  background: linear-gradient(-45deg, #ff9a9e, #8a2be2, #000000);
-  background-size: 300% 300%;
-  animation: flameWave 15s ease infinite;
-  padding: 1.3rem;
-  border-bottom: 1px solid #7e96d300;
+  background: linear-gradient(to top, #340842,  #4a1779d6, #4a1779c6,  #4a1779);
+  padding: 1.4rem;
   color: white;
 }
 
@@ -23,7 +20,7 @@
 }
 
 .hackathon-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 500;
   color: white;
 }
@@ -60,16 +57,4 @@
 
 .dropdown-item-banner:hover {
   background-color: #f8f9fa;
-}
-
-@keyframes flameWave {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }

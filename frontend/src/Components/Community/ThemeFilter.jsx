@@ -33,7 +33,7 @@ const ThemeFilter = ({ themes, setShowThemeModal, selectedThemes, setSelectedThe
             </div>
           ))
         ) : (
-          <p>No themes available.</p>
+          <p className="no-data-message">No themes available.</p>
         )}
       </div>
 

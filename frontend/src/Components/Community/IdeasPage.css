@@ -1,12 +1,6 @@
 .ideas-page-background {
-  background: linear-gradient(
-    -45deg,
-    #308dca,   /* midnight blue */
-    #3498db,   /* peter river */
-    #2b79ad    /* midnight blue */
-  );
+  background: #1b0423; 
   background-size: 300% 300%;
-  animation: grayWave 10s ease infinite; 
   height: 100vh;
   overflow-y: auto;
   padding-bottom: 50px;

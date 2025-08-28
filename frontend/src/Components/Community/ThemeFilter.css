@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 .theme-filter-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+  background-color: rgba(255, 255, 255, 0.4); /* Slightly transparent white background */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -13,7 +13,7 @@
 
 .theme-filter-title {
   font-family: 'Montserrat', sans-serif; /* New font */
-  color: #262329; /* Vivid purple from banner */
+  color: #ffffff; /* Vivid purple from banner */
   font-size: 1.8rem;
   margin-bottom: 20px;
   text-align: center;
@@ -31,11 +31,11 @@
 .theme-checkbox-item label {
   margin-left: 8px;
   font-size: 1.1rem;
-  color: #333;
+  color: #ffffff;
 }
 
 .manage-themes-button {
-  background-color: #73a1cf;
+  background-color: #44285f8b;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -114,4 +114,10 @@
 
 .theme-modal .modal-actions button:last-child:hover {
   background-color: #c82333;
+}
+
+.no-data-message {
+  color: white;
+  text-align: center;
+  margin-top: 20px;
 }

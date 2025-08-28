@@ -1,10 +1,5 @@
 .help-page {
-  background: linear-gradient(
-    -45deg,
-    #3498db8e,   /* midnight blue */
-    #3498db,   /* peter river */
-    #3498db9d    /* midnight blue */
-  );
+  background: #000401; 
   background-size: 300% 300%;
   animation: grayWave 15s ease infinite;
   height: 100vh;
