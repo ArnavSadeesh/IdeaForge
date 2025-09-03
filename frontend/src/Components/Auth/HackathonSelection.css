@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+.hackathon-selection-page {
+    background: linear-gradient(
+        -45deg,
+        #ff9a9e,   /* soft pink */
+        #8a2be2,   /* vivid purple */
+        #000000    /* black */
+    );
+    background-size: 300% 300%;
+    animation: flameWave 10s ease infinite;
+    min-height: 100vh;
+    padding: 2rem 0;
+    overflow-y: auto;
+}
+
+@keyframes flameWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.hackathon-selection-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hackathon-selection-container h2 {
+    margin-bottom: 0.5rem;
+    color: white;
+    font-size: 2rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.loading {
+    color: white;
+    font-size: 1.2rem;
+    padding: 2rem;
+}
+
+.hackathons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.hackathon-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.hackathon-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.hackathon-card.selected {
+    background: rgba(0, 0, 128, 0.3);
+    border-color: #000080;
+    box-shadow: 0 0 20px rgba(0, 0, 128, 0.4);
+}
+
+.hackathon-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: white;
+    font-size: 1.3rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.hackathon-info {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.hackathon-description {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0.5rem 0 0 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.code-form {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.code-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+}
+
+.code-form button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #000080;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.code-form button[type="submit"]:hover {
+    background-color: #000066;
+}
+
+.skip-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1.5rem;
+}
+
+.skip-button {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.skip-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.error-message {
+    color: #ff6b6b;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+.no-hackathons {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.no-hackathons p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Custom scrollbar styling */
+.hackathon-selection-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.hackathon-selection-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.hackathon-selection-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.hackathon-selection-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.hackathon-selection-page::-webkit-scrollbar {
+    width: 12px;
+}
+
+.hackathon-selection-page::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.hackathon-selection-page::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+}
+
+.hackathon-selection-page::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hackathon-selection-page {
+        padding: 1rem 0;
+    }
+
+    .hackathon-selection-container {
+        margin: 0 1rem;
+        padding: 1.5rem;
+        max-width: none;
+    }
+    
+    .hackathon-selection-container h2 {
+        font-size: 1.7rem;
+    }
+    
+    .hackathon-card {
+        padding: 1rem;
+    }
+}

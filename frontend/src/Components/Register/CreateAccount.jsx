@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CreateAccount.css';
 import SuccessModal from './SuccessModal';
 
-const CreateAccount = ({ userType, onClose }) => {
+const CreateAccount = ({ userType, onClose, googleProfile = null }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,6 +20,21 @@ const CreateAccount = ({ userType, onClose }) => {
   const [error, setError] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [hackathonInfo, setHackathonInfo] = useState(null);
+  const [isGoogleRegistration, setIsGoogleRegistration] = useState(false);
+
+  // Pre-fill form with Google profile data
+  useEffect(() => {
+    if (googleProfile) {
+      setIsGoogleRegistration(true);
+      setFormData(prev => ({
+        ...prev,
+        firstName: googleProfile.firstName || '',
+        lastName: googleProfile.lastName || '',
+        email: googleProfile.email || '',
+        username: googleProfile.email || '', // Default username to email
+      }));
+    }
+  }, [googleProfile]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,12 +46,16 @@ const CreateAccount = ({ userType, onClose }) => {
     const payload = {
       userType,
       username: formData.username,
-      password: formData.password,
       email: formData.email,
       firstName: formData.firstName,
       lastName: formData.lastName,
       country: formData.country,
     };
+
+    // Only include password for regular registration
+    if (!isGoogleRegistration) {
+      payload.password = formData.password;
+    }
 
     if (userType === 'Host') {
       payload.hackathonName = formData.hackathonName;
@@ -48,7 +67,20 @@ const CreateAccount = ({ userType, onClose }) => {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
+      let response;
+      if (isGoogleRegistration) {
+        // Include Google profile data for Google registration
+        payload.googleProfile = googleProfile;
+        response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/complete-google-registration`, payload);
+        
+        // Store auth data for immediate login
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userType', response.data.userType);
+        localStorage.setItem('userName', response.data.userName);
+      } else {
+        response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
+      }
+      
       if (userType === 'Host') {
         setHackathonInfo({
           name: response.data.hackathonName,
@@ -56,8 +88,9 @@ const CreateAccount = ({ userType, onClose }) => {
         });
       }
       setShowSuccessModal(true);
-    } catch {
-      setError('Registration failed. Please check your inputs.');
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError(error.response?.data?.msg || 'Registration failed. Please check your inputs.');
     }
   };
 
@@ -81,30 +114,78 @@ const CreateAccount = ({ userType, onClose }) => {
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>X</button>
         <h2>Create Your {userType} Account</h2>
+        {isGoogleRegistration && (
+          <p className="google-registration-note">Complete your registration with Google account details</p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="register-form-group">
             <label htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" onChange={handleChange} />
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName" 
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="register-form-group">
             <label htmlFor="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" onChange={handleChange} />
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName" 
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="register-form-group">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" onChange={handleChange} />
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div className="register-form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" onChange={handleChange} />
-          </div>
+          {!isGoogleRegistration && (
+            <div className="register-form-group">
+              <label htmlFor="password">Password</label>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
           <div className="register-form-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" onChange={handleChange} />
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              value={formData.email}
+              onChange={handleChange}
+              disabled={isGoogleRegistration}
+              required
+            />
           </div>
           <div className="register-form-group">
             <label htmlFor="country">Country</label>
-            <input type="text" id="country" name="country" onChange={handleChange} />
+            <input 
+              type="text" 
+              id="country" 
+              name="country" 
+              value={formData.country}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           {userType === 'Sponsor' && (

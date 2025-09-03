@@ -53,3 +53,43 @@ body {
   color: black;
   box-shadow: 0 0 20px white;
 }
+
+.google-registration-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.9));
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  z-index: 10;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+.google-registration-header h2 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.google-registration-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+}

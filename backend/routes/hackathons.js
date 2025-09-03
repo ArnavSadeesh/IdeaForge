@@ -1,5 +1,6 @@
 import express from 'express';
 import Hackathon from '../models/Hackathon.js';
+import User from '../models/User.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
@@ -44,6 +45,73 @@ router.patch('/:hackathonId/themes', auth, async (req, res) => {
     res.json({ msg: 'Themes updated successfully', themes: hackathon.themes });
   } catch (error) {
     console.error('Error in PATCH /hackathons/:hackathonId/themes:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Route to get all hackathons (public)
+router.get('/', async (req, res) => {
+  try {
+    const hackathons = await Hackathon.find({}, 'name description participants hosts');
+    res.json(hackathons);
+  } catch (error) {
+    console.error('Error fetching hackathons:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Route to join a hackathon
+router.post('/join', auth, async (req, res) => {
+  try {
+    const { hackathonId, hackathonCode } = req.body;
+    const userId = req.user.id;
+
+    if (!hackathonId || !hackathonCode) {
+      return res.status(400).json({ msg: 'Hackathon ID and code are required' });
+    }
+
+    // Find hackathon and verify code
+    const hackathon = await Hackathon.findById(hackathonId);
+    if (!hackathon) {
+      return res.status(404).json({ msg: 'Hackathon not found' });
+    }
+
+    if (hackathon.code !== hackathonCode) {
+      return res.status(400).json({ msg: 'Invalid hackathon code' });
+    }
+
+    // Find user and update their hackathons
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Check if user is already in this hackathon
+    if (user.hackathons.includes(hackathonId)) {
+      return res.status(400).json({ msg: 'You are already part of this hackathon' });
+    }
+
+    // Add hackathon to user's list
+    user.hackathons.push(hackathonId);
+    await user.save();
+
+    // Add user to hackathon's participants if not already there
+    if (!hackathon.participants.includes(userId)) {
+      hackathon.participants = hackathon.participants || [];
+      hackathon.participants.push(userId);
+      await hackathon.save();
+    }
+
+    res.json({ 
+      msg: 'Successfully joined hackathon',
+      hackathon: {
+        id: hackathon._id,
+        name: hackathon.name,
+        code: hackathon.code
+      }
+    });
+  } catch (error) {
+    console.error('Error joining hackathon:', error);
     res.status(500).send('Server error');
   }
 });
