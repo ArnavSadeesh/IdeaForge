@@ -42,8 +42,8 @@ const HackathonSelection = () => {
       return;
     }
     
-    if (hackathonCode !== selectedHackathon.code) {
-      setError('Invalid hackathon code');
+    if (!hackathonCode.trim()) {
+      setError('Please enter a hackathon code');
       return;
     }
 

@@ -3,29 +3,29 @@ import ApprovalRequest from '../models/ApprovalRequest.js';
 import User from '../models/User.js';
 import Idea from '../models/Idea.js';
 import Hackathon from '../models/Hackathon.js';
-import auth from '../middleware/auth.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.post('/', auth, async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
-    const { title, description, themes, keywords, author, implementationPlan, hackathonId, ideaId } = req.body;
+    const { title, description, themes, keywords, requireAuthor, implementationPlan, hackathonId, ideaId } = req.body;
 
-    const claimerUser = await User.findById(req.user.id);
+    const claimerUser = await User.findById(req.user._id);
     if (claimerUser.claimedIdea) {
       return res.status(400).json({ msg: 'You have already claimed an idea.' });
     }
 
-    const authorUser = await User.findById(author);
+    const requireAuthorUser = await User.findById(requireAuthor);
 
     const approvalRequest = new ApprovalRequest({
       title,
       description,
       themes,
       keywords,
-      authorUsername: authorUser.username,
+      requireAuthorUsername: requireAuthorUser.username,
       claimerUsername: claimerUser.username,
-      authorEmail: authorUser.email,
+      requireAuthorEmail: requireAuthorUser.email,
       claimerEmail: claimerUser.email,
       implementationPlan,
       hackathonId,
@@ -40,7 +40,7 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-router.get('/', auth, async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
   try {
     const { hackathonId } = req.query;
     if (!hackathonId) {
@@ -54,7 +54,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-router.patch('/:id/approve', auth, async (req, res) => {
+router.patch('/:id/approve', requireAuth, async (req, res) => {
   try {
     const approvalRequest = await ApprovalRequest.findById(req.params.id);
     if (!approvalRequest) {
@@ -76,20 +76,20 @@ router.patch('/:id/approve', auth, async (req, res) => {
     idea.claimed = true;
     idea.claimer = claimerUser._id;
     claimerUser.claimedIdea = idea._id;
-    const claimerMsg = `Request to Claim ${approvalRequest.title} was approved! Contact idea author ${approvalRequest.authorUsername} at ${approvalRequest.authorEmail}.`;
+    const claimerMsg = `Request to Claim ${approvalRequest.title} was approved! Contact idea requireAuthor ${approvalRequest.requireAuthorUsername} at ${approvalRequest.requireAuthorEmail}.`;
     claimerUser.recentMessages.push({ text: claimerMsg, timestamp: new Date() });
 
     await idea.save();
     await claimerUser.save();
 
-    const author = await User.findOne({ username: approvalRequest.authorUsername });
-    if (!author) {
+    const requireAuthor = await User.findOne({ username: approvalRequest.requireAuthorUsername });
+    if (!requireAuthor) {
       return res.status(404).json({ msg: 'Author user not found' });
     }
 
-    const authorMsg = `Your idea ${approvalRequest.title} was claimed by ${approvalRequest.claimerUsername}. You can contact them at ${approvalRequest.claimerEmail}!`;
-    author.recentMessages.push({ text: authorMsg, timestamp: new Date() });
-    await author.save(); 
+    const requireAuthorMsg = `Your idea ${approvalRequest.title} was claimed by ${approvalRequest.claimerUsername}. You can contact them at ${approvalRequest.claimerEmail}!`;
+    requireAuthor.recentMessages.push({ text: requireAuthorMsg, timestamp: new Date() });
+    await requireAuthor.save(); 
 
     await approvalRequest.deleteOne();
 
@@ -100,7 +100,7 @@ router.patch('/:id/approve', auth, async (req, res) => {
   }
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const approvalRequest = await ApprovalRequest.findById(req.params.id);
     if (!approvalRequest) {

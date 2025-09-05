@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import dotenv from 'dotenv';
 import User from '../models/User.js';
 
@@ -49,17 +50,20 @@ passport.use(new GoogleStrategy({
   }
 }));
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
+// JWT Strategy for stateless authentication
+passport.use(new JwtStrategy({
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
+}, async (jwtPayload, done) => {
   try {
-    const user = await User.findById(id);
-    done(null, user);
+    const user = await User.findById(jwtPayload.userId);
+    if (user) {
+      return done(null, user);
+    }
+    return done(null, false);
   } catch (error) {
-    done(error, null);
+    return done(error, false);
   }
-});
+}));
 
 export default passport;

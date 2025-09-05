@@ -2,7 +2,7 @@ import express from 'express';
 import Idea from '../models/Idea.js';
 import User from '../models/User.js';
 import Hackathon from '../models/Hackathon.js';
-import authenticateToken from '../middleware/auth.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -29,9 +29,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   const { title, description, theme, keywords, hackathonId } = req.body;
-  const author = req.user.id;
+  const author = req.user._id;
 
   try {
     const newIdea = new Idea({
@@ -59,7 +59,7 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
-router.patch('/:id', authenticateToken, async (req, res) => {
+router.patch('/:id', requireAuth, async (req, res) => {
   try {
     const idea = await Idea.findById(req.params.id);
     if (!idea) {
@@ -67,7 +67,7 @@ router.patch('/:id', authenticateToken, async (req, res) => {
     }
 
     // No longer setting claimer here, this will be done on approval
-    // idea.claimer = req.user.id;
+    // idea.claimer = req.user._id;
     // await idea.save();
     res.json(idea);
   } catch (err) {
@@ -76,9 +76,9 @@ router.patch('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/my-ideas', authenticateToken, async (req, res) => {
+router.get('/my-ideas', requireAuth, async (req, res) => {
   try {
-    const myIdeas = await Idea.find({ author: req.user.id });
+    const myIdeas = await Idea.find({ author: req.user._id });
     res.json(myIdeas);
   } catch (err) {
     console.error('Error in /my-ideas route:', err.message);

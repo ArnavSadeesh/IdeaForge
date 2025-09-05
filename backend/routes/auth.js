@@ -5,6 +5,7 @@ import passport from 'passport';
 import User from '../models/User.js';
 import Hackathon from '../models/Hackathon.js';
 import { sendHackathonCodeEmail } from '../utils/emailService.js';
+import { generateToken } from '../utils/jwt.js';
 
 const router = express.Router();
 
@@ -92,32 +93,25 @@ router.post('/login', async (req, res) => {
     let hackathon = null;
     if (hackathonCode) {
       hackathon = await Hackathon.findOne({ code: hackathonCode });
-      if (hackathon && !user.hackathons.includes(hackathon._id)) {
+      if (!hackathon) {
+        console.log('Invalid hackathon code:', hackathonCode); // Added logging
+        return res.status(400).json({ msg: 'Invalid hackathon code' });
+      }
+      if (!user.hackathons.includes(hackathon._id)) {
         user.hackathons.push(hackathon._id);
         await user.save();
       }
     }
 
-    const payload = {
-      id: user.id,
-      userType: user.userType, // Include userType in the payload
-    };
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' },
-      (err, token) => {
-        if (err) throw err;
-        console.log('Login successful'); // Added logging
-        res.json({ 
-          token, 
-          userType: user.userType, 
-          hackathonName: hackathon ? hackathon.name : user.hackathonName, 
-          hackathonId: hackathon ? hackathon._id : null 
-        });
-      }
-    );
+    const token = generateToken(user.id);
+    
+    console.log('Login successful'); // Added logging
+    res.json({ 
+      token, 
+      userType: user.userType, 
+      hackathonName: hackathon ? hackathon.name : user.hackathonName, 
+      hackathonId: hackathon ? hackathon._id : null 
+    });
   } catch (err) {
     console.error('Login error:', err.message); // Added logging
     res.status(500).send('Server error');
@@ -154,12 +148,7 @@ router.get('/google/callback',
 
       try {
         // Generate JWT token for the authenticated user
-        const payload = {
-          id: user.id,
-          userType: user.userType,
-        };
-
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = generateToken(user.id);
 
         // Redirect to frontend with token and user info
         res.redirect(`${frontendURL}/auth/callback?token=${token}&userType=${user.userType}&userName=${user.username}`);
@@ -241,12 +230,7 @@ router.post('/complete-google-registration', async (req, res) => {
     }
 
     // Generate JWT token
-    const payload = {
-      id: user.id,
-      userType: user.userType,
-    };
-
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = generateToken(user.id);
 
     res.json({
       msg: 'Google registration completed successfully',

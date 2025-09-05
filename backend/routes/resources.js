@@ -1,11 +1,11 @@
 import express from 'express';
 import Resource from '../models/Resource.js';
-import auth from '../middleware/auth.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Route to create a new resource (Sponsor only)
-router.post('/', auth, async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
     const { name, type, intendedUse, intendedTheme, miscellaneous } = req.body;
 
@@ -20,7 +20,7 @@ router.post('/', auth, async (req, res) => {
       intendedUse,
       intendedTheme,
       miscellaneous,
-      sponsor: req.user.id, // Assign the authenticated user's ID as the sponsor
+      sponsor: req.user._id, // Assign the requireAuthenticated user's ID as the sponsor
     });
 
     const savedResource = await newResource.save();
@@ -32,14 +32,14 @@ router.post('/', auth, async (req, res) => {
 });
 
 // Route to get resources for a specific sponsor (Sponsor only)
-router.get('/my-resources', auth, async (req, res) => {
+router.get('/my-resources', requireAuth, async (req, res) => {
   try {
     // Ensure user is a Sponsor
     if (req.user.userType !== 'Sponsor') {
       return res.status(403).json({ msg: 'Only sponsors can view their resources.' });
     }
 
-    const resources = await Resource.find({ sponsor: req.user.id });
+    const resources = await Resource.find({ sponsor: req.user._id });
     res.json(resources);
   } catch (error) {
     console.error(error);

@@ -1,12 +1,12 @@
 import express from 'express';
 import Hackathon from '../models/Hackathon.js';
 import User from '../models/User.js';
-import auth from '../middleware/auth.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Route to get hackathon details by ID
-router.get('/:hackathonId', auth, async (req, res) => {
+router.get('/:hackathonId', requireAuth, async (req, res) => {
   try {
     const hackathon = await Hackathon.findById(req.params.hackathonId);
     if (!hackathon) {
@@ -20,7 +20,7 @@ router.get('/:hackathonId', auth, async (req, res) => {
 });
 
 // Route to add themes to a hackathon (Host only)
-router.patch('/:hackathonId/themes', auth, async (req, res) => {
+router.patch('/:hackathonId/themes', requireAuth, async (req, res) => {
   try {
     const { hackathonId } = req.params;
     const { themes } = req.body;
@@ -35,8 +35,8 @@ router.patch('/:hackathonId/themes', auth, async (req, res) => {
       return res.status(404).json({ msg: 'Hackathon not found.' });
     }
 
-    if (!hackathon.hosts.includes(req.user.id)) {
-      return res.status(403).json({ msg: 'You are not authorized to manage themes for this hackathon.' });
+    if (!hackathon.hosts.includes(req.user._id)) {
+      return res.status(403).json({ msg: 'You are not requireAuthorized to manage themes for this hackathon.' });
     }
 
     hackathon.themes = themes; // Overwrite existing themes
@@ -61,23 +61,24 @@ router.get('/', async (req, res) => {
 });
 
 // Route to join a hackathon
-router.post('/join', auth, async (req, res) => {
+router.post('/join', requireAuth, async (req, res) => {
   try {
     const { hackathonId, hackathonCode } = req.body;
-    const userId = req.user.id;
+    const userId = req.user._id;
 
-    if (!hackathonId || !hackathonCode) {
-      return res.status(400).json({ msg: 'Hackathon ID and code are required' });
+    if (!hackathonCode) {
+      return res.status(400).json({ msg: 'Hackathon code is required' });
     }
 
-    // Find hackathon and verify code
-    const hackathon = await Hackathon.findById(hackathonId);
+    // Find hackathon by code (more flexible than requiring both ID and code)
+    const hackathon = await Hackathon.findOne({ code: hackathonCode });
     if (!hackathon) {
-      return res.status(404).json({ msg: 'Hackathon not found' });
+      return res.status(400).json({ msg: 'Invalid hackathon code' });
     }
 
-    if (hackathon.code !== hackathonCode) {
-      return res.status(400).json({ msg: 'Invalid hackathon code' });
+    // If hackathonId is provided, verify it matches the found hackathon
+    if (hackathonId && hackathon._id.toString() !== hackathonId) {
+      return res.status(400).json({ msg: 'Hackathon ID and code do not match' });
     }
 
     // Find user and update their hackathons
